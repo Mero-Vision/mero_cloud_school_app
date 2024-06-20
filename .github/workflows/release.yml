@@ -1,0 +1,82 @@
+name: "Build Release" # The name of the workflow
+on:
+  push:
+    branches:
+      - "release/features/*"
+
+jobs:
+  build_android: # Define a job named "build"
+    name: Android Build Release # Name of the job
+    runs-on: ubuntu-latest # Use ubuntu-latest as the runner
+
+    steps: # List of steps to perform for this job
+      - uses: actions/checkout@v2
+
+      # Setup Java environment
+      - name: Setting Java Environment
+        uses: actions/setup-java@v1
+        with:
+          java-version: "17.x"
+
+      # Cache Gradle files for faster builds
+      - name: Gradle Cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: ${{ runner.os }}-gradle-
+
+      # Setup Flutter environment
+      - name: Setting Flutter Environment
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.19.6"
+
+      - name: Clean
+        run: flutter clean
+
+      # Install packages required for the app
+      - name: Get Packages
+        run: flutter pub get
+
+      # Run tests
+      - name: Run Tests
+        run: flutter test
+
+      # Extract app name from pubspec.yaml
+      - name: Extract App Name
+        id: app_name
+        run: |
+          NAME=$(grep 'name:' pubspec.yaml | cut -d ':' -f2 | xargs)
+          echo "APP_NAME=$NAME" >> $GITHUB_ENV
+
+      # Extract version number from pubspec.yaml
+      - name: Extract version number
+        id: version_number
+        run: |
+          VERSION=$(grep 'version:' pubspec.yaml | cut -d ':' -f2 | xargs | cut -d '+' -f1)
+          echo "FLUTTER_VERSION=$VERSION" >> $GITHUB_ENV
+
+      # Build signed APK files
+      - name: Build Signed APK
+        run: flutter build apk --release --build-number=${GITHUB_RUN_NUMBER} --dart-define=KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }} --dart-define=KEY_ALIAS=${{ secrets.KEY_ALIAS }} --dart-define=KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}
+
+      # Rename the APK files using the extracted version number
+      - name: Rename APK files
+        run: |
+          mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/MeroCloudSchool-${{ env.FLUTTER_VERSION }}.apk
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: "${{ env.FLUTTER_VERSION }}+${{ github.run_number }}"
+          name: "MeroCloudSchool-${{ env.FLUTTER_VERSION }}+${{ github.run_number }}"
+          body_path: CHANGELOGS.md
+          files: |
+            build/app/outputs/flutter-apk/*.apk
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
