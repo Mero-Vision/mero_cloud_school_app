@@ -1,3 +1,4 @@
+import 'package:mero_cloud_school/core/common/exports.dart';
 
   import '../../../domain/entities/splash_entity.dart';
 

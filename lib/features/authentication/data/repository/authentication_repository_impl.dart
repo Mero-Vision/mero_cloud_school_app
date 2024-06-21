@@ -1,16 +1,16 @@
+import 'package:mero_cloud_school/core/common/exports.dart';
+import 'package:dartz/dartz.dart';
 
-  import '../data_source/local/authentication_local_data_source.dart';
-  import '../data_source/remote/authentication_remote_data_source.dart';
-  import '../../domain/repository/authentication_repository.dart';
+class AuthenticationRepositoryImpl implements IAuthenticationRepository {
+  final AuthenticationRemoteDataSource remoteDataSource;
 
+  AuthenticationRepositoryImpl({
+    required this.remoteDataSource,
+  });
 
-  class AuthenticationRepositoryImpl implements IAuthenticationRepository {
-    final AuthenticationLocalDataSource localDataSource;
-    final AuthenticationRemoteDataSource remoteDataSource;
-  
-    AuthenticationRepositoryImpl({
-      required this.localDataSource,
-      required this.remoteDataSource,
-    });
+  @override
+  Future<Either<AppErrorHandler, LoginDTOEntity>> login(
+      {required String email, required String password}) async {
+    return await remoteDataSource.login(email: email, password: password);
   }
-            
+}

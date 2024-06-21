@@ -1,6 +1,5 @@
 import 'package:mero_cloud_school/core/common/exports.dart';
 
-
 final locator = GetIt.instance;
 
 class MainDI {
@@ -17,8 +16,6 @@ class MainDI {
     );
 
     // Feature Containers
-    //AuthenticationDI().register();
+    AuthenticationDI().register();
   }
 }
-
-  

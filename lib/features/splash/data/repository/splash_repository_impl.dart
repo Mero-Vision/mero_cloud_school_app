@@ -1,7 +1,5 @@
+import 'package:mero_cloud_school/core/common/exports.dart';
 
-  import '../data_source/local/splash_local_data_source.dart';
-  import '../data_source/remote/splash_remote_data_source.dart';
-  import '../../domain/repository/splash_repository.dart';
 
 
   class SplashRepositoryImpl implements ISplashRepository {
