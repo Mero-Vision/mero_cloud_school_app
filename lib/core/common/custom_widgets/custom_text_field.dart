@@ -1,5 +1,4 @@
-import 'package:mero_cloud_school/core/common/exports.dart';
-
+import '../exports.dart';
 
 /// KTextFormField - A Custom Text Form Field for Flutter Applications.
 ///
@@ -66,14 +65,14 @@ import 'package:mero_cloud_school/core/common/exports.dart';
 class KTextFormField extends StatelessWidget {
   final String? hintText;
   final String? labelText;
-  final String? titleText;
-  final bool? showTitleText;
+  final String? topLabelText;
+  final bool? isTopLabelText;
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final bool? obscureText;
   final bool? enableSuggestions;
   final bool? autocorrect;
-  final TextStyle? titleStyle;
+  final TextStyle? topLabelStyle;
   final TextStyle? contentStyle;
   final TextStyle? hintTextStyle;
   final TextStyle? labelTextStyle;
@@ -94,20 +93,22 @@ class KTextFormField extends StatelessWidget {
   final TextAlign? textAlign;
   final int? maxLines;
   final bool? readOnly;
+  final bool? isSuffixText;
+  final String? suffixText;
 
   const KTextFormField({
     super.key,
     this.hintText,
     this.labelText,
-    this.titleText,
-    this.showTitleText = true,
+    this.topLabelText,
+    this.isTopLabelText = true,
     this.controller,
     this.keyboardType,
     this.obscureText = false,
     this.enableSuggestions = true,
     this.autocorrect = true,
+    this.topLabelStyle,
     this.contentStyle,
-    this.titleStyle,
     this.hintTextStyle,
     this.labelTextStyle,
     this.errorTextStyle,
@@ -127,6 +128,8 @@ class KTextFormField extends StatelessWidget {
     this.textAlign,
     this.maxLines = 1,
     this.readOnly,
+    this.isSuffixText = false,
+    this.suffixText,
   });
 
   @override
@@ -134,10 +137,10 @@ class KTextFormField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        showTitleText == true
+        isTopLabelText == true
             ? Text(
-                titleText ?? "",
-                style: titleStyle ?? Theme.of(context).textTheme.bBM,
+                topLabelText ?? "",
+                style: topLabelStyle ?? Theme.of(context).textTheme.f12W6,
               )
             : const SizedBox.shrink(),
         SizedBox(height: 4.h),
@@ -151,63 +154,74 @@ class KTextFormField extends StatelessWidget {
           enableSuggestions: enableSuggestions ?? true,
           autocorrect: autocorrect ?? true,
           textInputAction: TextInputAction.next,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
+          // autovalidateMode: AutovalidateMode.onUserInteraction,
           enableIMEPersonalizedLearning: enableIMEPersonalizedLearning ?? true,
           style: contentStyle ?? Theme.of(context).textTheme.f16W4,
           focusNode: focusNode,
           maxLines: maxLines,
           decoration: InputDecoration(
             counterText: '',
-            errorMaxLines: 1,
-            errorStyle:
-                Theme.of(context).textTheme.f14W4.copyWith(color: Colors.red),
+            errorMaxLines: 2,
+            errorStyle: Theme.of(context).textTheme.f14W4.copyWith(
+                  color: Colors.red,
+                ),
             hintText: hintText,
             labelText: labelText,
-            // hintStyle: hintTextStyle ?? GlobalConstants.textStyle(),
+            // hintStyle: hintTextStyle ?? Theme.of(context).textTheme.f16W4,
             hintStyle: Theme.of(context).textTheme.f14W4.copyWith(
                   color:
                       Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
                 ),
-            labelStyle: hintTextStyle ?? Theme.of(context).textTheme.f14W4,
+            labelStyle: hintTextStyle ?? Theme.of(context).textTheme.f16W4,
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12.r),
-              borderSide: BorderSide(
-                color: AppColors().outline,
+              borderRadius: BorderRadius.circular(4.r),
+              borderSide: const BorderSide(
+                color: PrimitiveColors.grey300,
               ),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12.r),
-              borderSide: BorderSide(
-                color: AppColors().outline,
+              borderRadius: BorderRadius.circular(4.r),
+              borderSide: const BorderSide(
+                color: PrimitiveColors.grey300,
               ),
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12.r),
-              borderSide: BorderSide(
-                color: AppColors().outline,
+              borderRadius: BorderRadius.circular(4.r),
+              borderSide: const BorderSide(
+                color: PrimitiveColors.grey300,
               ),
             ),
             errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12.r),
+              borderRadius: BorderRadius.circular(4.r),
               borderSide: BorderSide(
-                color: AppColors().error, // Set the error border color to amber
+                color: AppColors()
+                    .errorContainer, // Set the error border color to amber
               ),
             ),
 
-            fillColor: fillColor ?? AppColors().surfaceContainerHigh,
+            fillColor: fillColor ?? AppColors().surfaceDim,
             filled: true,
             contentPadding: EdgeInsets.symmetric(
               horizontal: 16.w,
-              vertical: 14.h,
+              vertical: 8.h,
             ),
             prefixIcon: prefixIcon,
             hintTextDirection: TextDirection.ltr,
-            suffixIcon: suffixIcon != null
-                ? GestureDetector(
-                    onTap: onSuffixTap,
-                    child: suffixIcon,
+            suffixIcon: isSuffixText == true
+                ? SizedBox(
+                    width: 60.w,
+                    child: Center(
+                        child: Text(
+                      suffixText.toString(),
+                      style: Theme.of(context).textTheme.f12W4,
+                    )),
                   )
-                : null,
+                : suffixIcon != null
+                    ? GestureDetector(
+                        onTap: onSuffixTap,
+                        child: suffixIcon,
+                      )
+                    : null,
           ),
           validator: validator,
           onChanged: onChanged,
@@ -223,5 +237,3 @@ class KTextFormField extends StatelessWidget {
     );
   }
 }
-
-    

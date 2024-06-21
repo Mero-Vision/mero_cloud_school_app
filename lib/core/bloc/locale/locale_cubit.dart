@@ -2,7 +2,7 @@ import 'package:mero_cloud_school/core/common/exports.dart';
 
 // Local Global Instance
 final I10n i10n = locator<I10n>();
-    
+
 class LocaleCubit extends Cubit<LocaleState> {
   LocaleCubit({
     required this.settingsHiveService,
@@ -21,8 +21,8 @@ class LocaleCubit extends Cubit<LocaleState> {
     final settings = await settingsHiveService.getSettings();
     await settingsHiveService.updateSettings(
       settings.copyWith(
-        languageCode: locale.languageCode,
-        country: locale.countryCode,
+        languageCode: () => locale.languageCode,
+        country: () => locale.countryCode,
       ),
     );
   }
@@ -44,5 +44,3 @@ class LocaleCubit extends Cubit<LocaleState> {
     }
   }
 }
-
-    

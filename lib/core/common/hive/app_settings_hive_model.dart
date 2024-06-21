@@ -1,3 +1,5 @@
+
+
 import 'package:mero_cloud_school/core/common/exports.dart';
 
 part 'app_settings_hive_model.g.dart';
@@ -16,7 +18,7 @@ class AppSettingsHiveModel {
   final bool server;
 
   @HiveField(3)
-  final String? user;
+  final LoginDTOHiveModel? loginDTO;
 
   @HiveField(4)
   final String? fingerPrintUser;
@@ -31,7 +33,7 @@ class AppSettingsHiveModel {
     required this.firstTime,
     required this.goHome,
     required this.server,
-    this.user,
+    this.loginDTO,
     this.fingerPrintUser,
     this.languageCode,
     this.country,
@@ -42,7 +44,7 @@ class AppSettingsHiveModel {
       firstTime: true,
       goHome: false,
       server: false,
-      user: null,
+      loginDTO: null,
     );
   }
 
@@ -50,67 +52,68 @@ class AppSettingsHiveModel {
     bool? firstTime,
     bool? goHome,
     bool? server,
-    String? user,
-    String? fingerPrintUser,
-    String? languageCode,
-    String? country,
+    ValueGetter<LoginDTOHiveModel?>? loginDTO,
+    ValueGetter<String?>? fingerPrintUser,
+    ValueGetter<String?>? languageCode,
+    ValueGetter<String?>? country,
   }) {
     return AppSettingsHiveModel(
       firstTime: firstTime ?? this.firstTime,
       goHome: goHome ?? this.goHome,
       server: server ?? this.server,
-      user: user ?? this.user,
-      fingerPrintUser: fingerPrintUser ?? this.fingerPrintUser,
-      languageCode: languageCode ?? this.languageCode,
-      country: country ?? this.country,
+      loginDTO: loginDTO != null ? loginDTO() : this.loginDTO,
+      fingerPrintUser:
+          fingerPrintUser != null ? fingerPrintUser() : this.fingerPrintUser,
+      languageCode: languageCode != null ? languageCode() : this.languageCode,
+      country: country != null ? country() : this.country,
     );
   }
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'firstTime': firstTime,
-      'goHome': goHome,
+    return {
+      'first_time': firstTime,
+      'go_home': goHome,
       'server': server,
-      'user': user,
-      'fingerPrintUser': fingerPrintUser,
-      'languageCode': languageCode,
+      'login_d_t_o': loginDTO?.toMap(),
+      'finger_print_user': fingerPrintUser,
+      'language_code': languageCode,
       'country': country,
     };
   }
 
   factory AppSettingsHiveModel.fromMap(Map<String, dynamic> map) {
     return AppSettingsHiveModel(
-      firstTime: map['firstTime'] as bool,
-      goHome: map['goHome'] as bool,
-      server: map['server'] as bool,
-      user: map['user'] != null ? map['user'] as String : null,
-      fingerPrintUser: map['fingerPrintUser'] != null
-          ? map['fingerPrintUser'] as String
+      firstTime: map['first_time'] ?? false,
+      goHome: map['go_home'] ?? false,
+      server: map['server'] ?? false,
+      loginDTO: map['login_d_t_o'] != null
+          ? LoginDTOHiveModel.fromMap(map['login_d_t_o'])
           : null,
-      languageCode:
-          map['languageCode'] != null ? map['languageCode'] as String : null,
-      country: map['country'] != null ? map['country'] as String : null,
+      fingerPrintUser: map['finger_print_user'],
+      languageCode: map['language_code'],
+      country: map['country'],
     );
   }
 
   String toJson() => json.encode(toMap());
 
   factory AppSettingsHiveModel.fromJson(String source) =>
-      AppSettingsHiveModel.fromMap(json.decode(source) as Map<String, dynamic>);
+      AppSettingsHiveModel.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'AppSettingsHiveModel(firstTime: $firstTime, goHome: $goHome, server: $server, user: $user, fingerPrintUser: $fingerPrintUser, languageCode: $languageCode, country: $country)';
+    return 'AppSettingsHiveModel(firstTime: $firstTime, goHome: $goHome, server: $server, loginDTO: $loginDTO, fingerPrintUser: $fingerPrintUser, languageCode: $languageCode, country: $country)';
   }
 
   @override
-  bool operator ==(covariant AppSettingsHiveModel other) {
+  bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other.firstTime == firstTime &&
+    return other is AppSettingsHiveModel &&
+        other.firstTime == firstTime &&
         other.goHome == goHome &&
         other.server == server &&
-        other.user == user &&
+        other.loginDTO == loginDTO &&
         other.fingerPrintUser == fingerPrintUser &&
         other.languageCode == languageCode &&
         other.country == country;
@@ -121,7 +124,7 @@ class AppSettingsHiveModel {
     return firstTime.hashCode ^
         goHome.hashCode ^
         server.hashCode ^
-        user.hashCode ^
+        loginDTO.hashCode ^
         fingerPrintUser.hashCode ^
         languageCode.hashCode ^
         country.hashCode;

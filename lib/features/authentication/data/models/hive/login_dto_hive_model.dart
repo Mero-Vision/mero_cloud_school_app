@@ -1,25 +1,31 @@
 import 'package:mero_cloud_school/core/common/exports.dart';
+part 'login_dto_hive_model.g.dart';
 
-class LoginDTOEntity {
-  final LoginDataEntity? data;
+@HiveType(
+  typeId: HiveTableConstant.loginDTOTableId,
+)
+class LoginDTOHiveModel {
+  @HiveField(0)
+  final LoginDataHiveModel? data;
+  @HiveField(1)
   final String? message;
 
-  LoginDTOEntity({
+  LoginDTOHiveModel({
     this.data,
     this.message,
   });
-  LoginDTOEntity copyWith({
-    ValueGetter<LoginDataEntity?>? data,
+  LoginDTOHiveModel copyWith({
+    ValueGetter<LoginDataHiveModel?>? data,
     ValueGetter<String?>? message,
   }) {
-    return LoginDTOEntity(
+    return LoginDTOHiveModel(
       data: data != null ? data() : this.data,
       message: message != null ? message() : this.message,
     );
   }
 
   @override
-  String toString() => 'LoginDTOEntity(data: $data, message: $message)';
+  String toString() => 'LoginDTOHiveModel(data: $data, message: $message)';
 
   Map<String, dynamic> toMap() {
     return {
@@ -28,33 +34,28 @@ class LoginDTOEntity {
     };
   }
 
-  factory LoginDTOEntity.fromMap(Map<String, dynamic> map) {
-    return LoginDTOEntity(
-      data: map['data'] != null ? LoginDataEntity.fromMap(map['data']) : null,
+  factory LoginDTOHiveModel.fromMap(Map<String, dynamic> map) {
+    return LoginDTOHiveModel(
+      data:
+          map['data'] != null ? LoginDataHiveModel.fromMap(map['data']) : null,
       message: map['message'],
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory LoginDTOEntity.fromJson(String source) =>
-      LoginDTOEntity.fromMap(json.decode(source));
+  factory LoginDTOHiveModel.fromJson(String source) =>
+      LoginDTOHiveModel.fromMap(json.decode(source));
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is LoginDTOEntity &&
+    return other is LoginDTOHiveModel &&
         other.data == data &&
         other.message == message;
   }
 
   @override
   int get hashCode => data.hashCode ^ message.hashCode;
-
-  LoginDTOHiveModel toHiveModel() {
-    return LoginDTOHiveModel.fromMap(
-      toMap(),
-    );
-  }
 }

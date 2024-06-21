@@ -1,14 +1,20 @@
+class HiveTableConstant {
+  HiveTableConstant._();
 
-    class HiveTableConstant {
-        HiveTableConstant._();
-      
-        // App Settings
-        static const int appSettingsTableId = 0;
-        static const String appSettingsBox = "appSettingsBox";
-      
-        // User
-        static const int userTableId = 1;
-        static const String userBox = "userBox";
-      }
-      
-    
+  // App Settings
+  static const int appSettingsTableId = 0;
+  static const String appSettingsBox = "appSettingsBox";
+
+  // User
+  static const int userTableId = 1;
+  static const String userBox = "userBox";
+  // Institution
+  static const int institutionTableId = 2;
+  static const String institutionBox = "institutionBox";
+  // Login Data
+  static const int loginDataTableId = 3;
+  static const String loginDataBox = "loginDataBox";
+  // Login DTO
+  static const int loginDTOTableId = 4;
+  static const String loginDTOBox = "loginDTOBox";
+}

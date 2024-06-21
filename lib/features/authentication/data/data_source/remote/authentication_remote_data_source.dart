@@ -27,7 +27,7 @@ class AuthenticationRemoteDataSource {
       } else {
         return Left(
           AppErrorHandler(
-            message: response.statusMessage ?? 'Something went wrong',
+            message: response.data['message'] ?? 'Something went wrong',
           ),
         );
       }

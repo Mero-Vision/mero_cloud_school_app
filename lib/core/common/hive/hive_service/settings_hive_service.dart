@@ -1,11 +1,14 @@
 import 'package:mero_cloud_school/core/common/exports.dart';
 
-
 // ! DO NOT MODIFY THIS FILE
 class SettingsHiveService {
   Future<void> init() async {
     await Hive.initFlutter();
     Hive.registerAdapter(AppSettingsHiveModelAdapter());
+    Hive.registerAdapter(LoginDataHiveModelAdapter());
+    Hive.registerAdapter(LoginDTOHiveModelAdapter());
+    Hive.registerAdapter(UserHiveModelAdapter());
+    Hive.registerAdapter(InstitutionHiveModelAdapter());
   }
 
   // ------------------ All Settings Queries ------------------ //
@@ -45,7 +48,3 @@ class SettingsHiveService {
     await box.clear();
   }
 }
-
-
-
-    

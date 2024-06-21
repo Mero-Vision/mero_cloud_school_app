@@ -1,6 +1,5 @@
 import 'package:mero_cloud_school/core/common/exports.dart';
 
-
 class LoginDTOModel extends LoginDTOEntity {
   LoginDTOModel({
     super.data,

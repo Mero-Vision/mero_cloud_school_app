@@ -1,20 +1,19 @@
 import 'package:mero_cloud_school/core/common/exports.dart';
 
+class AppRoutes {
+  // Initial Route
+  static const String initialRoute = '/';
+  static const String unknownRoute = '/unknown';
 
-  class AppRoutes {
-    // Initial Route
-    static const String initialRoute = '/';
-    static const String unknownRoute = '/unknown';
-  
-    // Example Routes
-    static const String exampleRoute = '/example-page';
-  
-   // List of all routes
-    static final Map<String, Widget Function(BuildContext)> routes = {
-      initialRoute: (context) => const SplashView(),
-    };
-  
-  
+  // Authentication Routes
+  static const String loginRoute = '/Login-page';
+
+  // List of all routes
+  static final Map<String, Widget Function(BuildContext)> routes = {
+    initialRoute: (context) => const SplashView(),
+    loginRoute: (context) => const LoginPage(),
+  };
+
   // onGenerateRoute
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     if (routes.containsKey(settings.name)) {
@@ -29,4 +28,3 @@ import 'package:mero_cloud_school/core/common/exports.dart';
     }
   }
 }
-    

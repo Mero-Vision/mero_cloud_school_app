@@ -1,3 +1,5 @@
+
+
 import 'package:mero_cloud_school/core/common/exports.dart';
 
 class LocaleState {
@@ -36,14 +38,14 @@ class LocaleState {
   LocaleState copyWith({
     bool? isLoading,
     bool? isSuccess,
-    AppErrorHandler? error,
+    ValueGetter<AppErrorHandler?>? error,
     List<Locale>? locales,
     Locale? selectedLocale,
   }) {
     return LocaleState(
       isLoading: isLoading ?? this.isLoading,
       isSuccess: isSuccess ?? this.isSuccess,
-      error: error ?? this.error,
+      error: error != null ? error() : this.error,
       locales: locales ?? this.locales,
       selectedLocale: selectedLocale ?? this.selectedLocale,
     );
@@ -55,10 +57,11 @@ class LocaleState {
   }
 
   @override
-  bool operator ==(covariant LocaleState other) {
+  bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other.isLoading == isLoading &&
+    return other is LocaleState &&
+        other.isLoading == isLoading &&
         other.isSuccess == isSuccess &&
         other.error == error &&
         listEquals(other.locales, locales) &&

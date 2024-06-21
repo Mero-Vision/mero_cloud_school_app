@@ -18,6 +18,7 @@ class AuthenticationDI {
     locator.registerFactory<LoginUsecase>(
       () => LoginUsecase(
         repository: locator(),
+        settingsHiveService: locator(),
       ),
     );
     // Cubits
