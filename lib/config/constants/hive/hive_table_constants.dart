@@ -17,4 +17,11 @@ class HiveTableConstant {
   // Login DTO
   static const int loginDTOTableId = 4;
   static const String loginDTOBox = "loginDTOBox";
+  // Master Data
+  static const int masterDataTableId = 5;
+  static const String masterDataReligionBox = "masterDataReligionBox";
+  static const String masterDataJobTypesBox = "masterDataJobTypesBox";
+  static const String masterDataGendersBox = "masterDataGendersBox";
+  static const String masterDataMaritalStatusBox = "masterDataMaritalStatusBox";
+  static const String masterDataDesignationBox = "masterDataDesignationBox";
 }

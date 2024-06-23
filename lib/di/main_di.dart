@@ -8,6 +8,7 @@ class MainDI {
     locator.registerLazySingleton(() => Api());
     locator.registerLazySingleton(() => HiveService());
     locator.registerLazySingleton(() => SettingsHiveService());
+    locator.registerLazySingleton(() => MasterDataHiveService());
     locator.registerLazySingleton(() => I10n());
     locator.registerLazySingleton(
       () => LocaleCubit(
@@ -16,6 +17,7 @@ class MainDI {
     );
 
     // Feature Containers
+    MasterDataDI().register();
     AuthenticationDI().register();
   }
 }

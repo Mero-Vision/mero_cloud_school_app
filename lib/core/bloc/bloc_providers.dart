@@ -5,6 +5,9 @@ class BlocProvidersList {
     BlocProvider<LocaleCubit>(
       create: (context) => locator<LocaleCubit>(),
     ),
+    BlocProvider<MasterDataCubit>(
+      create: (context) => locator<MasterDataCubit>(),
+    ),
     BlocProvider<AuthenticationCubit>(
       create: (context) => locator<AuthenticationCubit>(),
     ),

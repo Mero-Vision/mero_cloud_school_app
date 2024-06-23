@@ -11,6 +11,14 @@ class ApiEndpoints {
   // Endpoints
   static const String initialURL = "/";
 
+  // Master Data
+  static String religionsMasterDataURL = "/admin/master-data/religions";
+  static String jobTypesMasterDataURL = "/admin/master-data/job-types";
+  static String maritalStatusMasterDataURL =
+      "/admin/master-data/marital-status";
+  static String designationsMasterDataURL = "/admin/master-data/designations";
+  static String gendersMasterDataURL = "/admin/master-data/genders";
+
   // Auth
   static String loginURL = "/admin/login";
 }
