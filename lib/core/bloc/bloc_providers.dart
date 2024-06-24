@@ -11,5 +11,8 @@ class BlocProvidersList {
     BlocProvider<AuthenticationCubit>(
       create: (context) => locator<AuthenticationCubit>(),
     ),
+    BlocProvider<TeacherCubit>(
+      create: (context) => locator<TeacherCubit>(),
+    ),
   ];
 }

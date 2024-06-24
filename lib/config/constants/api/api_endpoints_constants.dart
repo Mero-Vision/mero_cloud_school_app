@@ -21,4 +21,7 @@ class ApiEndpoints {
 
   // Auth
   static String loginURL = "/admin/login";
+
+  // Teacher
+  static String teachersURL = "/admin/teachers";
 }

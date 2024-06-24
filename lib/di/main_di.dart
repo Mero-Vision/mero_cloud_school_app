@@ -19,5 +19,6 @@ class MainDI {
     // Feature Containers
     MasterDataDI().register();
     AuthenticationDI().register();
+    TeachersDI().register();
   }
 }

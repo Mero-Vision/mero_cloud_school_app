@@ -39,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
       navigation: () {
         Navigator.pushNamed(
           context,
-          AppRoutes.unknownRoute,
+          AppRoutes.homeRoute,
         );
       },
     );

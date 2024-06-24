@@ -20,7 +20,7 @@ class _SplashViewState extends State<SplashView> {
     if (setting.loginDTO == null && setting.loginDTO?.data?.token == null) {
       navigator.popAndPushNamed(AppRoutes.loginRoute);
     } else {
-      navigator.popAndPushNamed(AppRoutes.unknownRoute);
+      navigator.popAndPushNamed(AppRoutes.homeRoute);
     }
   }
 

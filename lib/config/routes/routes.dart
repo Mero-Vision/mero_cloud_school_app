@@ -1,4 +1,5 @@
 import 'package:mero_cloud_school/core/common/exports.dart';
+import 'package:mero_cloud_school/features/home.dart';
 
 class AppRoutes {
   // Initial Route
@@ -8,10 +9,14 @@ class AppRoutes {
   // Authentication Routes
   static const String loginRoute = '/Login-page';
 
+  // Home Routes
+  static const String homeRoute = '/home-page';
+
   // List of all routes
   static final Map<String, Widget Function(BuildContext)> routes = {
     initialRoute: (context) => const SplashView(),
     loginRoute: (context) => const LoginPage(),
+    homeRoute: (context) => const HomeView(),
   };
 
   // onGenerateRoute

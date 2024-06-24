@@ -1,4 +1,5 @@
 import 'package:mero_cloud_school/core/common/exports.dart';
+import 'package:mero_cloud_school/features/authentication/domain/usecase/logout_usecase.dart';
 
 class AuthenticationDI {
   void register() {
@@ -21,10 +22,16 @@ class AuthenticationDI {
         settingsHiveService: locator(),
       ),
     );
+    locator.registerFactory<LogoutUsecase>(
+      () => LogoutUsecase(
+        settingsHiveService: locator(),
+      ),
+    );
     // Cubits
     locator.registerLazySingleton<AuthenticationCubit>(
       () => AuthenticationCubit(
         loginUsecase: locator(),
+        logoutUsecase: locator(),
       ),
     );
   }
